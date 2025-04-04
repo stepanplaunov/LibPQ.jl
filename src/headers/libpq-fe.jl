@@ -487,7 +487,7 @@ function PQregisterThreadLock(newhandler::pgthreadlock_t)
 end
 
 function PQexec(conn, query)
-    ccall((:PQexec, LIBPQ_HANDLE), Ptr{PGresult}, (Ptr{PGconn}, Cstring), conn, query)
+    @threadcall((:PQexec, LIBPQ_HANDLE), Ptr{PGresult}, (Ptr{PGconn}, Cstring), conn, query)
 end
 
 function PQexecParams(conn, command, nParams, paramTypes, paramValues, paramLengths, paramFormats, resultFormat)
